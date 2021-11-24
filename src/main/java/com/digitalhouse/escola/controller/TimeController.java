@@ -15,7 +15,6 @@ import java.util.Optional;
 @RequestMapping("/time")
 public class TimeController {
 
-
     @Autowired
     public TimeController(TimeRepository timeRepository) {
         this.timeRepository = timeRepository;
@@ -23,21 +22,16 @@ public class TimeController {
 
     private TimeRepository timeRepository;
 
-    @PostMapping
-    private ResponseEntity<Time> cadastratime(@RequestBody Time time){
-        return ResponseEntity.status(HttpStatus.CREATED).body(timeRepository.save(time));
+    @GetMapping
+    private ResponseEntity<List<Time>> listarTodos(){
+
+        return ResponseEntity.ok(timeRepository.findAll());
     }
 
     @GetMapping("/{id}")
     private ResponseEntity<Optional<Time>> consultaTime(@PathVariable(value = "id") Long timeId){
 
         return ResponseEntity.ok().body(timeRepository.findById(timeId));
-    }
-
-    @GetMapping
-    private ResponseEntity<List<Time>> listarTodos(){
-
-        return ResponseEntity.ok(timeRepository.findAll());
     }
 
     @DeleteMapping("/{id}")

@@ -2,20 +2,17 @@ package com.digitalhouse.escola.model;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "tb_jogadores") // nome da tabela
+@Entity(name = "Jogador")
+@Table(name = "tb_jogadores")
 public class Jogador {
 
-    @Id // precisamos identificar para o banco de dados conhecer o ID
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incremento para a primary key-mais perfomático
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
     private String posicao;
     private int numero;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn (name = "time_id")
-    private Time time;
 
     public Long getId() {
         return id;
@@ -49,11 +46,4 @@ public class Jogador {
         this.numero = numero;
     }
 
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
 }

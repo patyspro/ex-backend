@@ -3,20 +3,25 @@ package com.digitalhouse.escola.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-@Entity
+@Entity(name = "Time")
 @Table(name = "tb_times")
 public class Time {
 
     @Id // precisamos identificar para o banco de dados conhecer o ID
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private  String cidade;
 
-    @OneToMany(mappedBy = "time")
-    private List<Jogador> jogadores = new ArrayList<>();
+    private String nome;
+    private String cidade;
+
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name= "time_id")
+    private Set<Jogador> jogadores = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -42,11 +47,11 @@ public class Time {
         this.cidade = cidade;
     }
 
-    public List<Jogador> getJogadores() {
+    public Set<Jogador> getJogadores() {
         return jogadores;
     }
 
-    public void setJogadores(List<Jogador> jogadores) {
+    public void setJogadores(Set<Jogador> jogadores) {
         this.jogadores = jogadores;
     }
 }
